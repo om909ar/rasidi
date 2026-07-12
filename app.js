@@ -1,37 +1,55 @@
-const Storage={
-
-key:"rasidi",
-
-load(){
-
-const data=localStorage.getItem(this.key);
+let data=Storage.load();
 
 if(!data){
 
-return null;
+data={
 
-}
+settings:{
 
-return JSON.parse(data);
+salaryDay:27,
 
-},
-
-save(data){
-
-localStorage.setItem(
-
-this.key,
-
-JSON.stringify(data)
-
-);
+minimumBalance:800
 
 },
 
-clear(){
+transactions:[
 
-localStorage.removeItem(this.key);
+{
+
+type:"income",
+
+category:"راتب",
+
+amount:7700
+
+},
+
+{
+
+type:"expense",
+
+category:"مطاعم",
+
+amount:18
+
+},
+
+{
+
+type:"expense",
+
+category:"مترو",
+
+amount:14
 
 }
+
+]
 
 };
+
+Storage.save(data);
+
+}
+
+UI.render();
