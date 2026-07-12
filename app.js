@@ -1,232 +1,37 @@
-// =========================
-// رصيدي - النسخة الأولى
-// =========================
+const Storage={
 
-let balance = Number(localStorage.getItem("balance")) || 2043.12;
+key:"rasidi",
 
-let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+load(){
 
-const balanceText = document.getElementById("balance");
-const list = document.getElementById("list");
+const data=localStorage.getItem(this.key);
 
-const modal = document.getElementById("modal");
+if(!data){
 
-const addButton = document.getElementById("addButton");
-const closeModal = document.getElementById("closeModal");
-const saveExpense = document.getElementById("saveExpense");
-
-const expenseName = document.getElementById("expenseName");
-const expenseAmount = document.getElementById("expenseAmount");
-const expenseCategory = document.getElementById("expenseCategory");
-
-const clearBtn = document.getElementById("clearBtn");
-
-const goal = 800;
-
-//===========================
-
-render();
-
-//===========================
-
-addButton.onclick = () => {
-
-modal.style.display="flex";
-
-};
-
-closeModal.onclick = ()=>{
-
-modal.style.display="none";
-
-};
-
-//===========================
-
-saveExpense.onclick=()=>{
-
-const name=expenseName.value.trim();
-
-const amount=Number(expenseAmount.value);
-
-const category=expenseCategory.value;
-
-if(name==="" || amount<=0){
-
-alert("أدخل البيانات");
-
-return;
+return null;
 
 }
 
-const expense={
+return JSON.parse(data);
 
-id:Date.now(),
+},
 
-name,
+save(data){
 
-amount,
+localStorage.setItem(
 
-category
+this.key,
 
-};
-
-expenses.unshift(expense);
-
-balance-=amount;
-
-saveData();
-
-expenseName.value="";
-
-expenseAmount.value="";
-
-modal.style.display="none";
-
-render();
-
-};
-
-//===========================
-
-clearBtn.onclick=()=>{
-
-if(confirm("حذف جميع العمليات؟")){
-
-expenses=[];
-
-saveData();
-
-render();
-
-}
-
-};
-
-//===========================
-
-function saveData(){
-
-localStorage.setItem("balance",balance);
-
-localStorage.setItem("expenses",JSON.stringify(expenses));
-
-}
-
-//===========================
-
-function render(){
-
-balanceText.innerHTML=
-
-balance.toFixed(2)+" ريال";
-
-list.innerHTML="";
-
-if(expenses.length===0){
-
-list.innerHTML="<p class='empty'>لا توجد عمليات</p>";
-
-}
-
-expenses.forEach(item=>{
-
-const div=document.createElement("div");
-
-div.className="item";
-
-div.innerHTML=`
-
-<div>
-
-<div class="item-name">
-
-${item.name}
-
-</div>
-
-<div class="item-category">
-
-${item.category}
-
-</div>
-
-</div>
-
-<div class="item-amount">
-
--${item.amount} ريال
-
-</div>
-
-`;
-
-list.appendChild(div);
-
-});
-
-calculateDays();
-
-}
-
-//===========================
-
-function calculateDays(){
-
-const today=new Date();
-
-const salaryDay=27;
-
-let nextSalary=new Date(
-
-today.getFullYear(),
-
-today.getMonth(),
-
-salaryDay
+JSON.stringify(data)
 
 );
 
-if(today.getDate()>salaryDay){
+},
 
-nextSalary=new Date(
+clear(){
 
-today.getFullYear(),
-
-today.getMonth()+1,
-
-salaryDay
-
-);
+localStorage.removeItem(this.key);
 
 }
 
-const diff=
-
-Math.ceil(
-
-(nextSalary-today)
-
-/(1000*60*60*24)
-
-);
-
-document.getElementById("daysLeft").innerHTML=
-
-diff+" يوم";
-
-const daily=
-
-Math.max(
-
-0,
-
-(balance-goal)/diff
-
-);
-
-document.getElementById("dailyLimit").innerHTML=
-
-daily.toFixed(0)+" ريال";
-
-}
+};
