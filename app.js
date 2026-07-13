@@ -1,53 +1,7 @@
-let data = Storage.load();
+alert("app.js اشتغل");
 
-if (!data) {
-
-data = {
-
-settings:{
-
-salaryDay:27,
-
-minimumBalance:800
-
-},
-
-fixedExpenses:[
-
-{name:"القرض",amount:2500},
-
-{name:"الشغالة",amount:350},
-
-{name:"الجوال والإنترنت",amount:350},
-
-{name:"بنزين",amount:500}
-
-],
-
-transactions:[
-
-{
-
-type:"income",
-
-category:"راتب",
-
-amount:7700,
-
-date:new Date().toLocaleDateString("ar-SA")
-
-}
-
-]
-
-};
-
-Storage.save(data);
-
-}
-
-document
-.getElementById("saveBtn")
-.onclick=()=>{
-UI.save();
-};
+document.getElementById("app").innerHTML = `
+<h1 style="text-align:center;margin-top:100px">
+✅ الموقع شغال
+</h1>
+`;
