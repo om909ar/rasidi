@@ -139,6 +139,18 @@ document.getElementById("transactions").innerHTML=html;
 
 quick(category){
 
+this.currentCategory=category;
+
+document.getElementById("sheetTitle").innerHTML=
+
+category;
+
+document.getElementById("sheetAmount").value="";
+
+document.getElementById("sheet").classList.add("show");
+
+}
+
 let amount=prompt("كم المبلغ؟");
 
 if(!amount)return;
