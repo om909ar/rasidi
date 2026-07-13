@@ -47,3 +47,13 @@ Storage.save(data);
 }
 
 UI.render();
+
+document
+
+.getElementById("saveBtn")
+
+.onclick=()=>{
+
+UI.save();
+
+};
