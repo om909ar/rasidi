@@ -1,165 +1,93 @@
+/* ===========================
+   Rasidi 2.0
+=========================== */
+
+:root{
+
+--primary:#2F6BFF;
+--primary2:#5C8EFF;
+--bg:#F5F7FB;
+--card:#FFFFFF;
+--text:#111827;
+--sub:#6B7280;
+--danger:#EF4444;
+--success:#16A34A;
+--radius:26px;
+
+}
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
 
-background:#f4f7fb;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
 
-color:#111827;
+background:var(--bg);
 
-padding:25px;
+color:var(--text);
+
+padding:24px;
+
+}
+
+#app{
+
+max-width:520px;
+
+margin:auto;
+
+padding-bottom:140px;
+
+}
+
+h1,h2,h3,h4,h5{
+
+font-weight:700;
+
+}
+
+button{
+
+font-family:inherit;
+
+cursor:pointer;
+
+border:none;
+
+outline:none;
+
+}
+
+input,select{
+
+font-family:inherit;
+
+outline:none;
 
 }
 
 .card{
 
-background:white;
+background:var(--card);
 
-border-radius:28px;
-
-padding:25px;
+border-radius:var(--radius);
 
 box-shadow:
 
-0 10px 30px rgba(0,0,0,.08);
+0 12px 35px rgba(0,0,0,.07);
 
-margin-bottom:20px;
+padding:22px;
 
-}
-
-.balance{
-
-background:linear-gradient(135deg,#1677ff,#3d8bfd);
-
-color:white;
+margin-bottom:18px;
 
 }
 
-.balance h1{
-
-font-size:18px;
-
-font-weight:500;
-
-opacity:.9;
-
-}
-
-.balance h2{
-
-font-size:50px;
-
-margin-top:15px;
-
-}
-
-.balance p{
-
-opacity:.9;
-
-margin-top:10px;
-
-font-size:18px;
-
-}
-
-.grid{
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:15px;
-
-margin-top:20px;
-
-}
-
-.small{
-
-text-align:center;
-
-padding:20px;
-
-background:white;
-
-border-radius:22px;
-
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-
-}
-
-.small h3{
-
-font-size:15px;
-
-color:#666;
-
-margin-bottom:10px;
-
-}
-
-.small span{
-
-font-size:30px;
-
-font-weight:bold;
-
-display:block;
-
-}
-
-.section-title{
-
-font-size:25px;
-
-font-weight:bold;
-
-margin:25px 0 15px;
-
-}
-
-.quick{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:15px;
-
-}
-
-.quick button{
-
-height:75px;
-
-border:none;
-
-border-radius:22px;
-
-font-size:30px;
-
-background:white;
-
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-
-cursor:pointer;
-
-transition:.2s;
-
-}
-
-.quick button:active{
-
-transform:scale(.95);
-
-}
-
-.transaction{
+.header{
 
 display:flex;
 
@@ -167,14 +95,80 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:18px 0;
-
-border-bottom:1px solid #eee;
+margin-bottom:18px;
 
 }
 
-.transaction:last-child{
+.logo{
 
-border:none;
+font-size:42px;
+
+font-weight:900;
+
+}
+
+.logo small{
+
+display:block;
+
+font-size:18px;
+
+font-weight:500;
+
+color:var(--sub);
+
+margin-top:4px;
+
+}
+
+.balance-card{
+
+background:
+
+linear-gradient(135deg,
+
+#2F6BFF,
+
+#5688FF);
+
+color:white;
+
+border-radius:34px;
+
+padding:30px;
+
+box-shadow:
+
+0 18px 40px rgba(47,107,255,.35);
+
+margin-bottom:22px;
+
+}
+
+.balance-title{
+
+font-size:22px;
+
+opacity:.95;
+
+}
+
+.balance-value{
+
+font-size:54px;
+
+font-weight:900;
+
+margin-top:18px;
+
+}
+
+.balance-currency{
+
+font-size:22px;
+
+opacity:.9;
+
+margin-top:8px;
 
 }
