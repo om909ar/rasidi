@@ -1,129 +1,184 @@
-const UI={
+const UI = {
 
-render(){
+render() {
 
-const data=Storage.load();
+const data = Storage.load();
 
-const balance=Finance.balance(data);
+const balance = Finance.balance(data);
+const today = Finance.todayLimit(data);
 
-const today=Finance.todayLimit(data);
+document.getElementById("app").innerHTML = `
 
-document.getElementById("app").innerHTML=`
+<div class="header">
 
-<div class="card balance">
+<div class="balance-card">
 
-<h1>💰 الرصيد الحالي</h1>
+<div class="logo">💰</div>
+
+<h1>رصيدي</h1>
 
 <h2>${balance.toFixed(2)} ريال</h2>
 
-<p>
-
-المسموح اليوم
-
-${today} ريال
-
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="small">
-
-<h3>🎯 الهدف</h3>
-
-<span>
-
-${data.settings.minimumBalance}
-
-</span>
-
-</div>
-
-<div class="small">
-
-<h3>📅 الراتب</h3>
-
-<span>
-
-27
-
-</span>
-
-</div>
-
-<div class="small">
-
-<h3>💳 العمليات</h3>
-
-<span>
-
-${data.transactions.length}
-
-</span>
+<p>المسموح اليوم <strong>${today}</strong> ريال</p>
 
 </div>
 
 </div>
 
-<h2 class="section-title">
+<div class="cards">
 
-⚡ تسجيل سريع
+<div class="small-card">
 
-</h2>
+<span>🎯 الهدف</span>
 
-<div class="quick">
-
-<button>🍔</button>
-
-<button>⛽</button>
-
-<button>🚇</button>
-
-<button>🚗</button>
-
-<button>🛒</button>
-
-<button>❤️</button>
-
-<button>📱</button>
-
-<button>📦</button>
+<b>${data.settings.minimumBalance} ريال</b>
 
 </div>
 
-<h2 class="section-title">
+<div class="small-card">
 
-آخر العمليات
+<span>📅 الراتب</span>
 
-</h2>
+<b>${data.settings.salaryDay}</b>
 
-<div class="card">
+</div>
 
-${data.transactions.map(t=>`
+<div class="small-card">
+
+<span>💳 العمليات</span>
+
+<b>${data.transactions.length}</b>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>⚡ تسجيل سريع</h2>
+
+<div class="quick-grid">
+
+<button onclick="UI.quick('مطاعم')">🍔</button>
+
+<button onclick="UI.quick('بنزين')">⛽</button>
+
+<button onclick="UI.quick('مقاضي')">🛒</button>
+
+<button onclick="UI.quick('قهوة')">☕</button>
+
+<button onclick="UI.quick('صدقة')">❤️</button>
+
+<button onclick="UI.quick('أخرى')">➕</button>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>آخر العمليات</h2>
+
+<div id="transactions"></div>
+
+</div>
+
+<button class="fab" onclick="UI.add()">＋</button>
+
+`;
+
+this.drawTransactions(data);
+
+},
+
+  drawTransactions(data){
+
+let html="";
+
+const list=[...data.transactions].reverse();
+
+if(list.length===0){
+
+html=`<div class="empty">لا توجد عمليات</div>`;
+
+}else{
+
+list.forEach(t=>{
+
+html+=`
 
 <div class="transaction">
 
 <div>
 
-${t.category}
+<b>${t.category}</b>
+
+<br>
+
+<small>${t.date||""}</small>
 
 </div>
 
-<strong>
+<div class="${t.type==="income"?"green":"red"}">
 
-${t.amount}
-
-</strong>
+${t.type==="income"?"+":"-"} ${t.amount} ريال
 
 </div>
-
-`).join("")}
 
 </div>
 
 `;
 
-}
+});
 
 }
+
+document.getElementById("transactions").innerHTML=html;
+
+},
+
+quick(category){
+
+let amount=prompt("كم المبلغ؟");
+
+if(!amount)return;
+
+amount=parseFloat(amount);
+
+if(isNaN(amount))return;
+
+if(category==="أخرى"){
+
+const name=prompt("اكتب اسم العملية");
+
+if(name) category=name;
+
+}
+
+const data=Storage.load();
+
+data.transactions.push({
+
+type:"expense",
+
+category,
+
+amount,
+
+date:new Date().toLocaleDateString("ar-SA")
+
+});
+
+Storage.save(data);
+
+this.render();
+
+},
+
+add(){
+
+this.quick("أخرى");
+
+}
+
+};
