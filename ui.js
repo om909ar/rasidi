@@ -150,6 +150,47 @@ document.getElementById("sheetAmount").value="";
 document.getElementById("sheet").classList.add("show");
 
 }
+  closeSheet(){
+
+document
+
+.getElementById("sheet")
+
+.classList.remove("show");
+
+},
+
+save(){
+
+const amount=parseFloat(
+
+document.getElementById("sheetAmount").value
+
+);
+
+if(isNaN(amount)) return;
+
+const data=Storage.load();
+
+data.transactions.push({
+
+type:"expense",
+
+category:this.currentCategory,
+
+amount,
+
+date:new Date().toLocaleDateString("ar-SA")
+
+});
+
+Storage.save(data);
+
+this.closeSheet();
+
+this.render();
+
+}
 
 let amount=prompt("كم المبلغ؟");
 
