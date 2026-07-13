@@ -1,8 +1,8 @@
-let data=Storage.load();
+let data = Storage.load();
 
-if(!data){
+if (!data) {
 
-data={
+data = {
 
 settings:{
 
@@ -12,6 +12,18 @@ minimumBalance:800
 
 },
 
+fixedExpenses:[
+
+{name:"القرض",amount:2500},
+
+{name:"الشغالة",amount:350},
+
+{name:"الجوال والإنترنت",amount:350},
+
+{name:"بنزين",amount:500}
+
+],
+
 transactions:[
 
 {
@@ -20,27 +32,9 @@ type:"income",
 
 category:"راتب",
 
-amount:7700
+amount:7700,
 
-},
-
-{
-
-type:"expense",
-
-category:"مطاعم",
-
-amount:18
-
-},
-
-{
-
-type:"expense",
-
-category:"مترو",
-
-amount:14
+date:new Date().toLocaleDateString("ar-SA")
 
 }
 
